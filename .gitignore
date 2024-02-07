@@ -1,0 +1,7 @@
+logs.log
+mlruns/
+pd
+pycaret_model.pkl
+random_forest_model.pkl
+tf_idf.pkl
+xgboost_model.pkl
