@@ -136,7 +136,11 @@ class XGBoostModel(Model):
         x = self.TF_IDF.transform([text])
 
         if self.model is None:
-            self.load_model('xgboost_model.pkl')
+            model_file_path = 'xgboost_model.pkl'
+            if not os.path.exists(model_file_path):
+                raise Exception("Model file does not exist. Please build the model first.")
+
+            self.load_model(model_file_path)
 
         dm = xgb.DMatrix(x)
 
@@ -184,7 +188,11 @@ class RandomForestModel(Model):
         x = self.TF_IDF.transform([text])
 
         if self.model is None:
-            self.load_model('random_forest_model.pkl')
+            model_file_path = 'random_forest_model.pkl'
+            if not os.path.exists(model_file_path):
+                raise Exception("Model file does not exist. Please build the model first.")
+
+            self.load_model(model_file_path)
 
         res = self.model.predict(x)
 
@@ -223,7 +231,13 @@ class PyCaretModel(Model):
 
         # Load the saved PyCaret model
         if self.model is None:
-            self.model = load_model('pycaret_model')
+            if self.model is None:
+                # Check if the model file exists
+                model_file_path = 'pycaret_model.pkl'
+                if not os.path.exists(model_file_path):
+                    raise Exception("Model file does not exist. Please build the model first.")
+
+                self.model = load_model('pycaret_model')
 
         # Make predictions on new data
         new_data = pd.DataFrame({'title': [title], 'author': [author], 'text': [text]})
