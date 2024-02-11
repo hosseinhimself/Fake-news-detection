@@ -104,7 +104,7 @@ class XGBoostModel(Model):
         # Set XGBoost hyperparameters
         params = {
             'objective': 'multi:softmax',
-            'num_class': 3,
+            'num_class': 2,
             'eval_metric': 'mlogloss',
             'eta': 0.3,
             'max_depth': 3,
